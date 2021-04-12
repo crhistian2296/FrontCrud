@@ -8,7 +8,7 @@ const keys = require('../config/keys');
 const pool = new Pool({
   connectionString: keys.posgresqlURI,
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: false,
   }
 });
 
