@@ -71,9 +71,9 @@ formularioCreate.addEventListener('submit', function (e) {
   e.preventDefault();
   console.log('creaste con un click');
   let datos = new FormData(formularioCreate);
-  let nombrepaciente = datos.get('nombre');
-  let apellidopaciente = datos.get('apellido');
-  let idpaciente = datos.get('identificacion');
+  let nombreestudiante = datos.get('nombre');
+  let apellidoestudiante = datos.get('apellido');
+  let idestudiante = datos.get('identificacion');
 
   let myHeaders = new Headers();
 
@@ -81,13 +81,13 @@ formularioCreate.addEventListener('submit', function (e) {
     method: 'POST',
     headers: myHeaders,
     body: new URLSearchParams({
-      'nombre': nombrepaciente,
-      'apellido': apellidopaciente,
-      'numid': idpaciente
+      'nombre': nombreestudiante,
+      'apellido': apellidoestudiante,
+      'numid': idestudiante
     }),
   }
 
-  fetch('/basedatos/insertarpaciente', options)
+  fetch('/basedatos/insertarestudiante', options)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -99,9 +99,9 @@ formularioUpdate.addEventListener('submit', function (e) {
   e.preventDefault();
   console.log('actualizaste con un click');
   let datos = new FormData(formularioUpdate);
-  let nombrepaciente = datos.get('nombre');
-  let apellidopaciente = datos.get('apellido');
-  let idpaciente = datos.get('identificacion');
+  let nombreestudiante = datos.get('nombre');
+  let apellidoestudiante = datos.get('apellido');
+  let idestudiante = datos.get('identificacion');
 
   let myHeaders = new Headers();
 
@@ -109,13 +109,13 @@ formularioUpdate.addEventListener('submit', function (e) {
     method: 'PUT',
     headers: myHeaders,
     body: new URLSearchParams({
-      'nombre': nombrepaciente,
-      'apellido': apellidopaciente,
-      'numid': idpaciente
+      'nombre': nombreestudiante,
+      'apellido': apellidoestudiante,
+      'numid': idestudiante
     }),
   }
 
-  fetch('/basedatos/actualizarPaciente', options)
+  fetch('/basedatos/actualizarestudiante', options)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -134,12 +134,15 @@ formularioRead.addEventListener('submit', function (e) {
     headers: myHeaders,
   }
 
-  fetch('/basedatos/consultarPacientes', options)
+  fetch('/basedatos/consultarestudiantes', options)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
 
-      var codigoHTML=`
+      var codigoHTML = `
+        <fieldset id="submit">
+          <button name="consultar" type="submit" id="consultar-submit" data-submit="...Sending">Consultar</button>
+        </fieldset>
         <table>
           <tr>
             <th>Nombre</th>
@@ -153,9 +156,9 @@ formularioRead.addEventListener('submit', function (e) {
             <td>${data[i].apellido}</td>
             <td>${data[i].numid}</td>
           </tr>`;
-      };
+      }
       codigoHTML += `</table>`;
-      pacientes.innerHTML = codigoHTML;
+      formularioRead.innerHTML = codigoHTML;
     });
 });
 
@@ -164,7 +167,7 @@ formularioDelete.addEventListener('submit', function (e) {
   e.preventDefault();
   console.log('eliminaste con un click');
   let datos = new FormData(formularioDelete);
-  let idpaciente = datos.get('identificacion');
+  let idestudiante = datos.get('identificacion');
 
   let myHeaders = new Headers();
 
@@ -172,11 +175,11 @@ formularioDelete.addEventListener('submit', function (e) {
     method: 'DELETE',
     headers: myHeaders,
     body: new URLSearchParams({
-      'numid': idpaciente
+      'numid': idestudiante
     }),
   }
 
-  fetch('/basedatos/eliminarPaciente', options)
+  fetch('/basedatos/eliminarestudiante', options)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
